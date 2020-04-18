@@ -1,8 +1,26 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+import axios from "axios"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 import "./App.css"
 
 export default function App() {
+  useEffect(() => {
+    // Make a request for a user with a given ID
+    axios
+      .get("http://localhost:8080/something")
+      .then((res) => {
+        // handle success
+        console.log(res.data)
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error)
+      })
+      .finally(() => {
+        // always executed
+      })
+  }, [])
+
   return (
     <Router>
       <div>
