@@ -1,6 +1,8 @@
 const express = require("express")
 const cors = require("cors")
 const mongoose = require("mongoose")
+var bodyParser = require("body-parser")
+
 const user = require("./routes/user")
 
 const db = require("./config/keys").mongoURI
@@ -20,6 +22,13 @@ mongoose.connect(
 
 const app = express()
 const port = process.env.POST || 8080
+
+//
+// ─── Body parser middleware ──────────────────────────────────────────────────────────────────────────
+//
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 //
 // ─── MIDDLEWARES ────────────────────────────────────────────────────────────────

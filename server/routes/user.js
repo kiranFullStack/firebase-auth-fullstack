@@ -1,22 +1,38 @@
 const express = require("express")
 const router = express.Router()
 const User = require("./../models/User")
-var bodyParser = require("body-parser")
 
 router.get("/", (req, res) => {
-  res.json({ message: "Users Works" })
+  User.find()
+    .then((result) => res.send(result))
+    .catch((err) => console.log(err))
+})
+
+router.get("/:id", (req, res) => {
+  User.findById()
+    .then((result) => res.send(result))
+    .catch((err) => console.log(err))
 })
 
 router.post("/", (req, res) => {
-  res.json({ message: "Users Works Post" })
+  const user = new User(req.body)
+  user
+    .save()
+    .then((result) => res.send(result))
+    // .then((result) => res.send(result))
+    .catch((err) => console.log(err))
 })
 
-router.put("/", (req, res) => {
-  res.json({ message: "Users Works Put" })
+router.patch("/:id", (req, res) => {
+  User.findByIdAndUpdate(req.params.id, req.body)
+    .then((result) => res.send(result))
+    .catch((err) => console.log(err))
 })
 
-router.delete("/", (req, res) => {
-  res.json({ message: "Users Works Delete" })
+router.delete("/:id", (req, res) => {
+  Courses.findByIdAndDelete(req.params.id, req.body)
+    .then((result) => res.send(result))
+    .catch((err) => console.log(err))
 })
 
 module.exports = router
