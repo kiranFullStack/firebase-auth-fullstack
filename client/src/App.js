@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import axios from "axios"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom"
 import "./App.css"
+import Login from "./pages/Login"
 
 export default function App() {
   useEffect(() => {
@@ -10,7 +11,7 @@ export default function App() {
       .get("http://localhost:8080/something")
       .then((res) => {
         // handle success
-        console.log(res.data)
+        console.log(res.data, "fetcing data from app.js")
       })
       .catch((error) => {
         // handle error
@@ -41,11 +42,8 @@ export default function App() {
         {/* A <Switch> looks through its children <Route>s and
           renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/users">
-            <Users />
+          <Route path="/login">
+            <Login />
           </Route>
           <Route path="/">
             <Home />
@@ -58,12 +56,4 @@ export default function App() {
 
 function Home() {
   return <h2>Home</h2>
-}
-
-function About() {
-  return <h2>About</h2>
-}
-
-function Users() {
-  return <h2>Users</h2>
 }
