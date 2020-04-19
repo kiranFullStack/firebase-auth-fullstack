@@ -1,4 +1,4 @@
-import React, { Component } from "react"
+import React, { useEffect, useState } from "react"
 import firebase from "firebase"
 import StyledFirebaseUi from "react-firebaseui/StyledFirebaseAuth"
 import "whatwg-fetch"
@@ -32,30 +32,20 @@ var uiConfig = {
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
 }
 
-class Login extends Component {
-  constructor(props) {
-    super(props)
+export default function Login() {
+  const [isAuthenticated, setisAuthenticated] = useState(false)
 
-    this.state = {
-      isAuthenticated: false,
-    }
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     //Auth State Listener, called any time the user logs in or out
     firebase.auth().onAuthStateChanged((user) => {
-      this.setState({ isAuthenticated: !this.state.isAuthenticated })
+      setisAuthenticated(!isAuthenticated)
     })
-  }
+  }, [])
 
-  render() {
-    return (
-      <>
-        <h1>Login</h1>
-        <StyledFirebaseUi uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
-      </>
-    )
-  }
+  return (
+    <>
+      <h1>Login</h1>
+      <StyledFirebaseUi uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
+    </>
+  )
 }
-
-export default Login
