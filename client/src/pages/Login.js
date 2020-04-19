@@ -18,11 +18,11 @@ var uiConfig = {
     //After user signs in this function is called
     signInSuccessWithAuthResult: function (authResult, redirectUrl) {
       axios
-        .post("/api/auth/verifyUser", null, {
+        .post("/auth/verifyUser", null, {
           params: { user: firebase.auth().currentUser },
         })
         .then((res) => {
-          console.log(res)
+          console.log(res, "response from server")
         })
       return true
     },
